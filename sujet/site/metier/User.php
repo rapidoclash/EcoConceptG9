@@ -62,8 +62,8 @@ class User {
 	    return $this->_userPwd;
 	}
 
-	public function setUserPwd($userPwd) {
-	     $this->_userPwd = MD5($userPwd);
-	}
+    public function setUserPwd($userPwd) {
+        $this->_userPwd = password_hash($userPwd, PASSWORD_DEFAULT);
+    }
 }   
 ?>
