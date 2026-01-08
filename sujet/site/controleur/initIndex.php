@@ -1,5 +1,4 @@
 <?php
-
 	/* Connexion à la bdd */
 	$con = mysqli_connect("localhost", "root", "", "scierie");
 
