@@ -19,7 +19,7 @@
     {
         // Sécurisation des données avant affichage (Protection XSS)
         $titre = htmlspecialchars($resultat['titre'] ?? '');
-        $descr = htmlspecialchars($resultat['descr'] ?? '');
+        $descr =  htmlspecialchars(mb_substr($$resultat['descr'] ?? '', 0, 20));
         $img   = htmlspecialchars($resultat['img'] ?? '');
 
         $description = "<ul class='main-list'>";
@@ -31,7 +31,7 @@
         if(!empty($descr) && !empty($img)){
             $description .= "<li class ='main-item'><ul class ='sub-list'>";
             $description .= "<li class='sub-item'><p class='texte'>" . $descr . "</p></li>";
-            $description .= "<li class='sub-item'><img class='image' src='images/" . $img . "'></li>";
+            $description .= "<li class='sub-item'><img class='image' src='images/" . $img . "' alt='" . $descr . "'></li>";
             $description .= "</ul></li>";
         
         } else {
@@ -39,7 +39,7 @@
                 $description .= "<li class='main-item'><p class='texte'>" . $descr . "</p></li>";
             }
             if(!empty($img)){
-                $description .= "<li class='main-item'><img class='image' src='images/" . $img . "'></li>";
+                $description .= "<li class='main-item'><img class='image' src='images/" . $img . "' alt='" . $descr . "'></li>";
             }
         }
         

@@ -16,10 +16,10 @@ session_start();
     <main>
         <div class="video-container">
             <iframe 
-                src="https://www.youtube.com/embed/dbHXPnhCicI?autoplay=1&mute=1" 
+                src="https://www.youtube.com/embed/dbHXPnhCicI" 
                 title="YouTube video player" 
                 frameborder="0" 
-                allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowfullscreen>
             </iframe>
         </div>
