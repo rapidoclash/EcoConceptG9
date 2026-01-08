@@ -1,109 +1,359 @@
-/* =========================================
-   STYLE DE LA PAGE CONTACT
-   ========================================= */
-
-.contact-wrapper {
-    width: 100%;
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 20px;
-    text-align: center;
+/* ==========================================================================
+   0. VARIABLES & RESET GLOBAL
+   ========================================================================== */
+:root {
+    --main-green: #54b454;
+    --dark-green: #45a049;
+    --error-red: #e74c3c;
+    --bg-color: #f4f4f4;
+    --text-color: #333;
 }
 
-/* La carte blanche qui contient tout */
-.contact-card {
+* {
+    box-sizing: border-box; /* Indispensable pour la mise en page */
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Empêche le scroll horizontal et les bandes blanches */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh; /* Force le footer en bas */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Pousse le footer vers le bas */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Images responsives par défaut */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   1. HEADER & FOOTER
+   ========================================================================== */
+/* Footer */
+footer {
+    background-color: var(--main-green);
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+.footer-item {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.footer-item:hover {
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   2. UI GENERALE (Boutons, Inputs, Alertes)
+   ========================================================================== */
+/* Inputs */
+input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 15px;
     background-color: #fff;
+    outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--main-green);
+    box-shadow: 0 0 0 3px rgba(84, 180, 84, 0.2);
+}
+
+/* Boutons */
+.button, input[type="submit"], input[type="button"], button {
+    background-color: var(--main-green);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button:hover, input[type="submit"]:hover, input[type="button"]:hover, button:hover {
+    background-color: var(--dark-green);
+}
+
+/* Messages d'erreur et succès */
+.err, .reussite {
+    display: block;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+}
+.err { background: #fadbd8; color: #721c24; border: 1px solid #f5c6cb; }
+.reussite { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.err:empty, .reussite:empty { display: none; } /* Cache si vide */
+
+/* ==========================================================================
+   3. PAGES CONNEXION / INSCRIPTION (.forms)
+   ========================================================================== */
+.forms {
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    position: relative;
+    width: 92%;
+    max-width: 450px;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.forms h1 {
+    font-size: 26px;
+    color: #666;
+    font-weight: 300;
+    text-align: center;
+    margin: 0 0 25px 0;
+}
+
+.forms form { padding: 25px 30px; }
+#sinscrire { display: none; }
+
+/* Onglets */
+.forms .onglets {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    width: 100%;
+}
+.forms .onglets li { flex: 1; }
+.forms .onglets li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px 5px;
+    background: #e5e6e7;
+    color: #888;
+    text-align: center;
+    border-top: 3px solid transparent;
+    transition: all 0.3s;
+}
+.forms .onglets .active a {
+    background: #fff;
+    color: #444;
+    border-top: 3px solid red;
+}
+.forms .button { width: 100%; margin-top: 10px; }
+
+/* ==========================================================================
+   4. PAGE ACCUEIL (SLIDER & SECTIONS)
+   ========================================================================== */
+/* Slider */
+.slider-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+    margin-bottom: 30px;
+}
+.slider-container img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+}
+
+/* Sections Texte + Image (Alternance) */
+.home-section { margin-bottom: 40px; padding: 20px 0; border-bottom: 1px solid #eee; }
+.home-section:last-child { border-bottom: none; }
+.home-title { color: var(--main-green); font-size: 1.8rem; text-align: center; margin-bottom: 20px; }
+
+.home-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.home-text { flex: 1; min-width: 300px; text-align: justify; line-height: 1.6; }
+.home-img-wrapper { flex: 1; min-width: 300px; display: flex; justify-content: center; }
+.home-img-wrapper img {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   5. PAGE PRODUITS (GRID & CARDS)
+   ========================================================================== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.product-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+.card-img { width: 100%; height: 200px; background: #f9f9f9; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.card-content { padding: 20px; text-align: center; flex-grow: 1; }
+.card-title { color: var(--main-green); margin-bottom: 10px; font-size: 1.2rem; }
+.card-desc { font-size: 0.95rem; color: #666; }
+
+/* ==========================================================================
+   6. PAGE CONTACT (SPLIT LAYOUT)
+   ========================================================================== */
+.contact-wrapper { width: 100%; max-width: 1200px; margin: 40px auto; padding: 20px; }
+.titre { text-align: center; color: var(--main-green); margin-bottom: 30px; }
+
+.contact-card {
+    background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     padding: 40px;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: row; /* Horizontal sur PC */
+    gap: 50px;
+    align-items: flex-start;
 }
 
-/* La Grille Responsive */
+/* Infos (Gauche) */
 .contact-grid {
-    display: grid;
-    /* Crée des colonnes automatiques de minimum 250px */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    align-items: start;
-}
-
-/* Un bloc (Email, Tel, etc.) */
-.contact-item {
+    flex: 1;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    gap: 30px;
+    border-right: 1px solid #eee;
+    padding-right: 30px;
 }
-
-/* Cercles verts pour les icônes */
+.contact-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .icon-circle {
-    background-color: #54b454; /* Ton vert principal */
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 6px rgba(84, 180, 84, 0.3);
+    background: var(--main-green); color: white;
+    width: 50px; height: 50px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 10px;
+}
+.contact-item a { color: #666; text-decoration: none; transition: 0.3s; }
+.contact-item a:hover { color: var(--main-green); }
+
+/* Formulaire (Droite) */
+.form-container { flex: 2; width: 100%; }
+.form-container h2 { text-align: left; color: var(--main-green); margin-top: 0; }
+.form-actions { text-align: right; }
+
+/* ==========================================================================
+   7. PAGE ADMINISTRATION
+   ========================================================================== */
+.admin-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-top: 4px solid var(--main-green);
+}
+.form-row { display: flex; align-items: center; margin-bottom: 20px; gap: 20px; }
+.form-row label { flex: 0 0 150px; font-weight: 600; color: #555; }
+.btn-container { text-align: right; margin-top: 20px; }
+
+/* ==========================================================================
+   8. PAGE VIDEO
+   ========================================================================== */
+.video-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    display: block;
+    border: none;
 }
 
-.contact-item h2 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-/* Liens (Tel, Mail) */
-.contact-item a, .contact-item address {
-    color: #666;
-    text-decoration: none;
-    font-size: 1rem;
-    font-style: normal; /* Pour la balise address */
-    line-height: 1.5;
-    transition: color 0.3s;
-}
-
-.contact-item a:hover {
-    color: #54b454;
-    text-decoration: underline;
-}
-
-/* Bouton Facebook spécifique */
-.facebook-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #3b5998; /* Couleur Facebook officielle */
-    color: white !important; /* Force le blanc */
-    padding: 8px 15px;
-    border-radius: 4px;
-    text-decoration: none !important;
-    font-weight: bold;
-    transition: transform 0.2s;
-}
-
-.facebook-link:hover {
-    transform: translateY(-2px);
-    background-color: #2d4373;
-}
-
-.facebook-link i {
-    font-size: 1.2rem;
-}
-
-/* Adaptation Mobile */
-@media screen and (max-width: 600px) {
-    .contact-card {
-        padding: 20px;
+/* ==========================================================================
+   9. RESPONSIVE GLOBAL (TABLETTES & MOBILES)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    /* Contact passe en vertical */
+    .contact-card { flex-direction: column; gap: 0; }
+    .contact-grid { 
+        max-width: 100%; border-right: none; border-bottom: 1px solid #eee; 
+        padding-right: 0; padding-bottom: 30px; margin-bottom: 30px;
+        display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
     }
-    
-    .contact-grid {
-        gap: 30px; /* Moins d'espace entre les éléments sur mobile */
-    }
+    .form-container h2, .form-actions { text-align: center; }
+
+    /* Accueil passe en vertical */
+    .home-body { flex-direction: column; }
+    .home-text { order: 2; } .home-img-wrapper { order: 1; width: 100%; }
+
+    /* Admin passe en vertical */
+    .form-row { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .form-row label { width: 100%; }
+    .btn-container { text-align: center; }
+
+    /* Footer empilé */
+    footer, .footer-links { flex-direction: column; text-align: center; gap: 15px; }
+}
+
+@media screen and (max-width: 480px) {
+    .contact-grid { grid-template-columns: 1fr; } /* Contact 1 colonne sur petit écran */
+    .forms { width: 95%; margin: 20px auto; }
 }

@@ -5,18 +5,17 @@ require_once("../metier/User.php");
 require_once("../Dao/UserDao.php");
 
 // On récupère et test l'existance des variables de connexion
-if (isset($_GET['idUtil']) || isset($_GET['mdpUtil'])) {
+if (isset($_POST['idUtil']) || isset($_POST['mdpUtil'])) {
 
     // Accès à la BDD
-    $cnx = new DB_Connector();
+    $cnx = new DB_connector();
     $jeton = $cnx->openConnexion();
 
     $userManager = new UserDao($jeton);
-    $userId = $_GET['idUtil'];
-    $mdp = $_GET['mdpUtil'];
+    $userId = htmlspecialchars(trim($_POST['idUtil']));
+    $mdp = trim($_POST['mdpUtil']);
 	
-    $jetonExistance = $userManager->userExist($userId, MD5($mdp));
-    if ($jetonExistance) {
+    if ($userManager->checkPassword($userId, $mdp)) {
       $_SESSION['id'] = $userId;
          
 		  $cnx->closeConnexion();
@@ -27,8 +26,4 @@ if (isset($_GET['idUtil']) || isset($_GET['mdpUtil'])) {
 		  header('Location:../connexion.php');	
     }
 }
-
-
-
-
 ?>

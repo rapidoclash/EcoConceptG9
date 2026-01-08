@@ -6,6 +6,12 @@ if ((!isset($_SESSION['id']) || empty($_SESSION['id'])) && $_SESSION['role'] != 
     header("Location:connexion.php");
     exit(); // Toujours ajouter exit après une redirection header
 }
+
+// Generate CSRF token
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,16 +34,17 @@ if ((!isset($_SESSION['id']) || empty($_SESSION['id'])) && $_SESSION['role'] != 
 
             <?php
                 if (!empty($_SESSION['msgAddOk'])) {
-                    echo '<div class="reussite">' . $_SESSION['msgAddOk'] . '</div>';
+                    echo '<div class="reussite">' . htmlspecialchars($_SESSION['msgAddOk']) . '</div>';
                     $_SESSION['msgAddOk'] = "";
                 }
                 if (!empty($_SESSION['msgAddNok'])) {
-                    echo '<div class="err">' . $_SESSION['msgAddNok'] . '</div>';
+                    echo '<div class="err">' . htmlspecialchars($_SESSION['msgAddNok']) . '</div>';
                     $_SESSION['msgAddNok'] = "";
                 }
             ?>
 
-            <form id="formAjoutProduit" action="" method="post">
+            <form id="formAjoutProduit" action="controleur/addProduit.php" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="form-row">
                     <label for="lbProduit">Titre du produit</label>
                     <input type="text" id="lbProduit" name="lbProduit" placeholder="Ex: Ordinateur reconditionné" required/>
@@ -54,7 +61,7 @@ if ((!isset($_SESSION['id']) || empty($_SESSION['id'])) && $_SESSION['role'] != 
                 </div>
 
                 <div class="btn-container">
-                    <input id="btnAjoutProduit" type="button" value="Ajouter">
+                    <input id="btnAjoutProduit" type="submit" value="Ajouter">
                 </div>
             </form>
         </div>
@@ -65,16 +72,17 @@ if ((!isset($_SESSION['id']) || empty($_SESSION['id'])) && $_SESSION['role'] != 
 
             <?php
                 if (!empty($_SESSION['msgModifOk'])) {
-                    echo '<div class="reussite">' . $_SESSION['msgModifOk'] . '</div>';
+                    echo '<div class="reussite">' . htmlspecialchars($_SESSION['msgModifOk']) . '</div>';
                     $_SESSION['msgModifOk'] = "";
                 }
                 if (!empty($_SESSION['msgModifNok'])) {
-                    echo '<div class="err">' . $_SESSION['msgModifNok'] . '</div>';
+                    echo '<div class="err">' . htmlspecialchars($_SESSION['msgModifNok']) . '</div>';
                     $_SESSION['msgModifNok'] = "";
                 }
             ?>
 
-            <form id="formModifproduit" action="#" method="post">
+            <form id="formModifproduit" action="controleur/updateProduit.php" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="form-row" id="rowModificationProduit">
                     <label>Sélectionner</label>
                     <?php include "controleur/initSelectModifProduit.php"; ?>
@@ -91,7 +99,7 @@ if ((!isset($_SESSION['id']) || empty($_SESSION['id'])) && $_SESSION['role'] != 
                 </div>
 
                 <div class="btn-container">
-                    <input id="btnModifProduit" type="button" value="Modifier">
+                    <input id="btnModifProduit" type="submit" value="Modifier">
                 </div>
             </form>
         </div>
@@ -102,23 +110,24 @@ if ((!isset($_SESSION['id']) || empty($_SESSION['id'])) && $_SESSION['role'] != 
 
             <?php
                 if (!empty($_SESSION['msgSuppOk'])) {
-                    echo '<div class="reussite">' . $_SESSION['msgSuppOk'] . '</div>';
+                    echo '<div class="reussite">' . htmlspecialchars($_SESSION['msgSuppOk']) . '</div>';
                     $_SESSION['msgSuppOk'] = "";
                 }
                 if (!empty($_SESSION['msgSuppNok'])) {
-                    echo '<div class="err">' . $_SESSION['msgSuppNok'] . '</div>';
+                    echo '<div class="err">' . htmlspecialchars($_SESSION['msgSuppNok']) . '</div>';
                     $_SESSION['msgSuppNok'] = "";
                 }
             ?>
 
-            <form id="formSuppProduit" action="#" method="post">
+            <form id="formSuppProduit" action="controleur/deleteProduit.php" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="form-row" id="rowSuppression">
                     <label>Sélectionner</label>
                     <?php include "controleur/initSelectSuprProduit.php"; ?>
                 </div>
 
                 <div class="btn-container">
-                    <input id="btnSuppProduit" type="button" value="Supprimer" style="background-color: #d9534f;"> </div>
+                    <input id="btnSuppProduit" type="submit" value="Supprimer" style="background-color: #d9534f;"> </div>
             </form>
         </div>
 
