@@ -1,5 +1,5 @@
 <?php
-    require("../metier/DB_connector.php");
+    require("metier/DB_connector.php");
 
     /* 1. Instanciation de votre classe et connexion PDO */
     $db = new DB_Connector();
