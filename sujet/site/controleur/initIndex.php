@@ -1,52 +1,52 @@
 <?php
+    require("metier/DB_connector.php");
 
-	/* Connexion à la bdd */
-	$con = mysqli_connect("localhost", "root", "", "scierie");
+    /* 1. Instanciation de votre classe et connexion PDO */
+    $db = new DB_Connector();
+    $pdo = $db->openConnexion();
 
-	/* Gestion des erreurs de connexion */
-	if (mysqli_connect_errno()){
-		echo "Erreur de connexion: " . mysqli_connect_error();
-	}
+    /* 2. Requête SQL */
+    $sql = "SELECT home.titre, home.descr, home.img FROM home";
 
-	mysqli_set_charset($con,"utf8");
+    /* 3. Exécution de la requête via PDO */
+    // query() suffit ici car il n'y a pas de variables externes. 
+    // Si vous aviez des variables (WHERE id = ?), il faudrait utiliser prepare() + execute()
+    $stmt = $pdo->query($sql);
 
-	/* Requête SQL */
-	$sql = "SELECT home.titre, home.descr, home.img FROM home";
-
-	/* Gestion des erreurs de requête sql */
-	if (!mysqli_query($con, $sql)){
-		echo "Création échouée" . mysqli_error($con);
-	}
-
-	$requete = $con->query($sql);
-
-	while ($resultat = mysqli_fetch_array($requete))
+    /* 4. Boucle de lecture */
+    // PDO::FETCH_ASSOC permet de récupérer les résultats avec le nom des colonnes
+    while ($resultat = $stmt->fetch(PDO::FETCH_ASSOC))
     {
-		$description = "<ul class='main-list'>";
-		if($resultat['titre']!='') {
-			$description .= "<li class='main-item'><p class='titre'>".$resultat['titre']."</p></li>";
-		}
-		if($resultat['descr']!='' && $resultat['img']!=''){
-			$description .= "<li class ='main-item'><ul class ='sub-list'>";
+        // Sécurisation des données avant affichage (Protection XSS)
+        $titre = htmlspecialchars($resultat['titre'] ?? '');
+        $descr = htmlspecialchars($resultat['descr'] ?? '');
+        $img   = htmlspecialchars($resultat['img'] ?? '');
 
-			$description .= "<li class='sub-item'><p class='texte'>".$resultat['descr']."</p></li>";
-
-			$description .= "<li class='sub-item'><img class='image' src='images/".$resultat['img']."'></li>";
-			
-			$description .= "</ul></li>";
-		
-		}else{
-			if($resultat['descr']!=''){
-				$description .= "<li class='main-item'><p class='texte'>".$resultat['descr']."</p></li>";
-			}
-			if($resultat['img']!=''){
-				$description .= "<li class='main-item'><img class='image' src='images/".$resultat['img']."'></li>";
-			}
-		}
-		$description .="</ul>";
+        $description = "<ul class='main-list'>";
+        
+        if(!empty($titre)) {
+            $description .= "<li class='main-item'><p class='titre'>" . $titre . "</p></li>";
+        }
+        
+        if(!empty($descr) && !empty($img)){
+            $description .= "<li class ='main-item'><ul class ='sub-list'>";
+            $description .= "<li class='sub-item'><p class='texte'>" . $descr . "</p></li>";
+            $description .= "<li class='sub-item'><img class='image' src='images/" . $img . "'></li>";
+            $description .= "</ul></li>";
+        
+        } else {
+            if(!empty($descr)){
+                $description .= "<li class='main-item'><p class='texte'>" . $descr . "</p></li>";
+            }
+            if(!empty($img)){
+                $description .= "<li class='main-item'><img class='image' src='images/" . $img . "'></li>";
+            }
+        }
+        
+        $description .="</ul>";
         echo $description;
+    }
 
-	}
-
-	mysqli_close($con)
+    /* 5. Fermeture de la connexion */
+    $db->closeConnexion();
 ?>

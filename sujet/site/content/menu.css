@@ -55,8 +55,7 @@ nav {
 	
 	nav{
 	  justify-content: left;
-	  align-items: left;	
-	  
+	  align-items: start;
 	}
 	
 	.toggle{

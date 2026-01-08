@@ -1,8 +1,7 @@
 ﻿<?php
-session_start();
-require("../metier/DB_connector.php");
-require("../metier/Produit.php");
-require("../Dao/ProduitDao.php");
+require_once("metier/DB_connector.php");
+require_once("metier/Produit.php");
+require_once("Dao/ProduitDao.php");
 
 
 // Connexion à la BDD 
