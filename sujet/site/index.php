@@ -38,6 +38,7 @@ session_start();
     </ul>
 
 	<img src="./images/scierie.gif" style="width:70px; margin:5px;">
+
 </nav>
 
 
@@ -68,7 +69,7 @@ session_start();
 <footer id="footer">
 <ul class="footer-links">
     <li class="footer-item">©Projet 3iL</li>
-    <li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png"></a></li>
+    <li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.webp" loading="lazy"></a></li>
     <li class="footer-item">Site test</li>
 <ul/>
 </footer>
