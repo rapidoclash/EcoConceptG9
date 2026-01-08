@@ -21,7 +21,7 @@ class SupportDao {
     public function get($suId) {
 		$tab = array(); 
         $rqt= $this->_db->prepare("SELECT suId, suNom, suEmail, suSub, suMsg
-		                           FROM Support
+		                           FROM support
 								   WHERE suId= ?");	
 		$rqt->bindParam(1, $suId);	
 		$rqt->execute();
@@ -39,7 +39,7 @@ class SupportDao {
         $supports = [];
 	    $compteur = 0;
         $rqt = $this->_db->prepare('SELECT suId, suNom, suEmail, suSub, suMsg
-		                            FROM Support');
+		                            FROM support');
         $rqt->execute();
 
         while ($donnees = $rqt->fetch()) {
@@ -55,7 +55,7 @@ class SupportDao {
 	* Ajout d'un nouveau message
 	*/
     public function add($support) {
-        $rqt = $this->_db->prepare('INSERT INTO Support(suNom, suEmail, suSub, suMsg)
+        $rqt = $this->_db->prepare('INSERT INTO support(suNom, suEmail, suSub, suMsg)
 							         VALUES(?,?,?,?)');
 
 		$rqt->bindValue(1, $support->getSuNom());
@@ -70,7 +70,7 @@ class SupportDao {
 	 * Suppression d'un message
 	 */
     public function delete($support) {
-           $rqt = $this->_db->prepare('DELETE FROM Support WHERE suId = ?'); 
+           $rqt = $this->_db->prepare('DELETE FROM support WHERE suId = ?'); 
 		   $rqt->bindValue(1, $support->getSuId());
 		   
 		   return $rqt->execute(); 
@@ -80,7 +80,7 @@ class SupportDao {
 	 * Mise à jour d'un message 
 	 */
 	public function update($support) {
-        $rqt = $this->_db->prepare('UPDATE Support 
+        $rqt = $this->_db->prepare('UPDATE support 
 	                          SET suNom = ?, suEmail = ?,suSub = ?, suMsg = ?
                     	      WHERE suId = ?');
 
