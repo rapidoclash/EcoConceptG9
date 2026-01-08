@@ -11,8 +11,8 @@
 	});
 </script> 
 <nav class="navbar">
-	<li class="toggle">
-		<ul class ="toggle-item"><i class="fa fa-bars menu" aria-hidden="true"> </i></ul>
+	<li class="toggle menu">
+		<ul class ="toggle-item"><i class="fa fa-bars" aria-hidden="true"> </i></ul>
     </li>
     <ul class="nav-links">
       	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
