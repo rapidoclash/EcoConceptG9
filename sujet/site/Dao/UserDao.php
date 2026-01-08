@@ -2,7 +2,7 @@
 /**
  * Gestionnaire de la classe user
  */
-class userDao {
+class UserDao {
 	
 	/** Instance de PDO pour se connecter à la BD */
 	private $_db;
@@ -17,48 +17,37 @@ class userDao {
 	/**
 	 * Recherche d'un utilisateur en ce basant sur le couple ident/mdp
 	 */
-    public function userExist($userId, $userPwd) {
-
-		$req = "SELECT userId FROM user WHERE userId = '$userId' and userPwd = '$userPwd'";
-		$stmt = $this->_db->query($req);
-
-		if ($donnees = $stmt->fetch()) {  
-		    return true;
-		}else{
-			return false;
-		}
-    }
+	public function userExist($userId, $userPwd) {
+		$stmt = $this->_db->prepare(
+			"SELECT userId FROM user WHERE userId = ? AND userPwd = ?"
+		);
+		$stmt->execute([$userId, $userPwd]);
+		return $stmt->fetch() !== false;
+	}
 	
 	/**
 	 * Recherche de l'existance d'un id
 	 */
-    public function idExist($userId) {
-		$req = "SELECT userId FROM user WHERE userId = '$userId'";
-		$stmt = $this->_db->query($req);
-
-		if ($donnees = $stmt->fetch()) {  
-		    return true;
-		}else{
-			return false;
-		}   
-    }
+	public function idExist($userId) {
+		$stmt = $this->_db->prepare("SELECT userId FROM user WHERE userId = ?");
+		$stmt->execute([$userId]);
+		return $stmt->fetch() !== false;
+	}
     
 	
    /** 
     * Récupération de tous les users de la BDD
     */
     public function getList() {
-       
-        $rqt = $this->_db->prepare('SELECT *
-		                           FROM user');
-        $rqt->execute();
-	
-        while ($donnees = $rqt->fetch()) {
-            $users[$compteur] = new user($donnees);
-		    $compteur ++;
-        }
-        return $users;
-    }
+		$stmt = $this->_db->prepare('SELECT * FROM user');
+		$stmt->execute();
+		
+		$users = [];
+		while ($donnees = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$users[] = new User($donnees);
+		}
+		return $users;
+	}
 	
      
 	/**
@@ -66,12 +55,12 @@ class userDao {
 	 */
    public function add($user) {
   
-		$rqt = $this->_db->prepare('INSERT INTO user(userId, userPwd)
+		$stmt = $this->_db->prepare('INSERT INTO user(userId, userPwd)
 									VALUES(?,?)');
-		$rqt->bindValue(1, $user->getUserId());
-		$rqt->bindValue(2, $user->getUserPwd());
+		$stmt->bindValue(1, $user->getUserId());
+		$stmt->bindValue(2, $user->getUserPwd());
 
-    	$rqt->execute();
+    	$stmt->execute();
 	}
   
     /**
