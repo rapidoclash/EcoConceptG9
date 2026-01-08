@@ -1,56 +1,90 @@
-﻿.forms {
+﻿/* =========================================
+   1. RESET & BASES
+   ========================================= */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* C'est LA ligne magique qui coupe ce qui dépasse */
+    position: relative; /* Aide à stabiliser la mise en page */
+}
+
+* {
+    box-sizing: border-box; /* Empêche les paddings d'agrandir les boîtes */
+}
+
+/* Ajoute ceci à la fin de ton fichier style.css */
+.err:empty {
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+/* =========================================
+   2. CONTENEUR DU FORMULAIRE (.forms)
+   ========================================= */
+.forms {
     background: #fff;
-    box-shadow: 0 0 3px #000;
-    margin: 10% 10%;
-    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 4px;
     position: relative;
+    overflow: hidden;
+
+    /* GESTION DE LA LARGEUR ET DU CENTRAGE (CORRECTION 375px) */
+    width: 92%;           /* Prend 92% de la largeur sur mobile (donc petites marges égales) */
+    max-width: 450px;     /* Ne dépasse jamais 450px sur PC */
+    margin: 40px auto;    /* 'auto' centre horizontalement, 40px d'espace en haut/bas */
     padding: 0;
 }
 
 .forms h1 {
-    padding: 0 0 20px 0;
-    font-size: 28px;
+    font-size: 26px;
     color: #666;
-    font-weight: lighter;
+    font-weight: 300;
     text-align: center;
-    margin-bottom: 6%;
+    margin: 0 0 25px 0;
 }
 
+/* Padding interne du formulaire */
 .forms form { 
-    padding: 30px; 
+    padding: 25px 30px; 
 }
 
+/* On cache l'inscription par défaut */
 #sinscrire { 
     display: none; 
 }
 
+/* =========================================
+   3. ONGLETS (TABS) - FLEXBOX
+   ========================================= */
 .forms .onglets {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;      /* Aligne les onglets côte à côte */
+    width: 100%;
 }
 
-.forms .onglets:after {
-    content: "";
-    display: table;
-    clear: both;
+.forms .onglets li {
+    flex: 1;            /* Force chaque onglet à faire exactement 50% */
+    margin: 0;
 }
 
 .forms .onglets li a {
     display: block;
     text-decoration: none;
-    padding: 15px;
+    padding: 15px 10px;
     background: #e5e6e7;
     color: #888;
-    font-size: 20px;
-    float: left;
-    width: 45.7%;
+    font-size: 18px;
     text-align: center;
     border-top: 3px solid transparent;
-    -moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
 }
 
 .forms .onglets li a:hover {
@@ -61,45 +95,108 @@
 .forms .onglets .active a {
     background: #fff;
     color: #444;
-    border-top: 3px solid red;
+    border-top: 3px solid red; /* Ta couleur rouge */
+}
+
+/* =========================================
+   4. INPUTS & LABELS
+   ========================================= */
+.input-field {
+    width: 100%;
+}
+
+.forms label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    display: block;
+    font-weight: 500;
 }
 
 .forms input {
     display: block;
-    width: 80%;
+    width: 100%;        /* Prend 100% du parent form (fini les 80% + margin) */
+    padding: 12px;      /* Zone de clic confortable */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;    /* 16px empêche le zoom automatique sur iPhone */
     margin-bottom: 10px;
-    margin-left: 5%;
-
+    background-color: #fafafa;
 }
 
-.forms label {
-    font-size: 20px;
-    font-weight: normal;
-    color: #666;
-    margin-bottom: 5px;
-    margin-top: 3%;
-    display: block;
-        margin-left: 5%;
+.forms input:focus {
+    background-color: #fff;
+    border-color: #53af57; /* Couleur verte au focus */
+    outline: none;
 }
 
+/* =========================================
+   5. BOUTONS & MESSAGES
+   ========================================= */
 .forms .button {
     background-color: #53af57;
-    color : white;
-    margin-left: 25%;
-    margin-top: 12%;
-    width: 50%;
-}
-
-.forms .button:hover, .button:focus { 
-    background: #00802b; 
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
     cursor: pointer;
+    
+    /* Centrage et dimension du bouton */
+    width: 100%;
+    margin-top: 25px;
+    margin-left: 0;     /* Annule ton ancien margin-left: 25% */
+    padding: 12px 0;
+    border-radius: 4px;
+    transition: background 0.3s;
 }
 
+.forms .button:hover { 
+    background: #00802b; 
+}
+
+/* Gestion des erreurs PHP */
+.err {
+    display: block;
+    text-align: center;
+    color: #e74c3c;
+    background: #fadbd8;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Liens en bas de page */
 .text-p { 
     text-align: center; 
-    margin-top: 3%;
+    margin-top: 20px;
 }
 
 .text-p a { 
     color: #1383ea; 
+    text-decoration: none;
+}
+
+/* =========================================
+   6. RESPONSIVE OPTIMISÉ (Mobile)
+   ========================================= */
+@media screen and (max-width: 480px) {
+    .forms {
+        width: 95%;      /* Un peu plus large sur très petits écrans */
+        margin-top: 20px;
+    }
+    
+    .forms form {
+        padding: 20px 15px; /* Réduit un peu le padding interne */
+    }
+
+    .forms h1 {
+        font-size: 24px;
+    }
+    
+    .forms .onglets li a {
+        padding: 12px 5px;
+        font-size: 16px;
+    }
 }

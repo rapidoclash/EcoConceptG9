@@ -7,7 +7,7 @@ class DB_Connector {
         if(!isset($connect)){
             
             try{
-                $connect = new PDO('mysql:host=localhost;dbname=scierie;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_LOCAL_INFILE => true));
+                $connect = new PDO('mysql:host=localhost;dbname=scierie;charset=utf8', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_LOCAL_INFILE => true));
                 
             } catch (PDOException $ex) {
                 die('connexion echouée : '.$ex->getMessage());

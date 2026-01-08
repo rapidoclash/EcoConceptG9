@@ -1,60 +1,60 @@
 <?php
-	session_start();
+session_start();
 ?>
 <!DOCTYPE html>
-
 <html lang="fr">
+
 <head>
-	<title>TRUC</title>
+	<title>Nos Produits - TRUC</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-	<!--*************** MENU ***************-->
-	<?php
-		include "partials/_header.php";
-	?>
-	<!--*************** END MENU ***************-->
-	
-	<!--*************** LISTE PRODUITS ***************-->
+	<?php include "partials/_header.php"; ?>
 	<main id="container">
 		<?php
-			require_once("metier/DB_connector.php");
-			require_once("metier/Produit.php");
-			require_once("Dao/ProduitDao.php");
+		require_once("metier/DB_connector.php");
+		require_once("metier/Produit.php");
+		require_once("Dao/ProduitDao.php");
 
-			// Ouverture de la connexion BDD
-			$cnx = new DB_connector();
-			$jeton = $cnx->openConnexion();
+		// Ouverture de la connexion BDD
+		$cnx = new DB_connector();
+		$jeton = $cnx->openConnexion();
 
+		// Création du manager
+		$produitManager = new ProduitDao($jeton);
+		$produits = $produitManager->getList();
 
-			// Création du manager permettant les actions en BDD
-			$produitManager = new ProduitDao($jeton);
+		// 1. On ouvre le conteneur GRILLE (une seule fois avant la boucle)
+		echo '<div class="products-grid">';
 
-			$produits = $produitManager->getList();
+		// 2. On boucle pour créer les CARTES
+		foreach ($produits as $produit) {
+			echo '<div class="product-card">';
 
+			// Image du produit
+			echo '<div class="card-img">';
+			echo '<img src="images/' . $produit->getImg() . '" alt="' . $produit->getTitre() . '">';
+			echo '</div>';
 
+			// Contenu (Titre + Description)
+			echo '<div class="card-content">';
+			echo '<h3 class="card-title">' . $produit->getTitre() . '</h3>';
+			echo '<p class="card-desc">' . $produit->getDescr() . '</p>';
+			echo '</div>';
 
-			for ($i = 0; $i < count($produits); $i++) {
-				
-				$produit = "<ul class='main-list'>";
-				$produit .= "<li class='main-item'><p class='titre'>".$produits[$i]->getTitre()."</p></li>";
-				$produit .= "<li class ='main-item'><ul class ='sub-list'>";
-				$produit .= "<li class='sub-item'><p class='texte'>".$produits[$i]->getDescr()."</p></li>";
-				$produit .= "<li class='sub-item'><img class='image' src='images/".$produits[$i]->getImg()."'></li>";		
-				$produit .= "</ul></li></ul>";
-				echo $produit;
-			}
+			echo '</div>'; // Fin de la carte
+		}
+
+		// 3. On ferme le conteneur GRILLE (une seule fois après la boucle)
+		echo '</div>';
 		?>
 	</main>
-	<!--*************** END LISTE PRODUITS ***************-->
-	
-	<!--*************** PIED DE PAGE ***************-->
-	<?php
-		include "partials/_footer.php";
-	?>
-	<!--*************** END PIED DE PAGE ***************-->
+
+	<?php include "partials/_footer.php"; ?>
 </body>
 
 </html>

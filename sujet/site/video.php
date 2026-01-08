@@ -2,40 +2,29 @@
 session_start();
 ?>
 <!DOCTYPE html>
-
 <html lang="fr">
-	<head>
-		<title>TRUC</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
+<head>
+    <title>Vidéo - TRUC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-	<body>
-	<!--*************** MENU ***************-->
-<?php
-	include "partials/_header.php";
-?>
+<body>
 
-<!--*************** END MENU ***************-->
-		<div style="text-align: center;">
-			<iframe 
-  				width="500" 
-  				height="281" 
-  				src="https://www.youtube.com/embed/dbHXPnhCicI?autoplay=1&mute=1" 
-  				title="YouTube video player" 
-  				frameborder="0" 
-  				allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  				allowfullscreen>
-			</iframe>
-		</div>
+    <?php include "partials/_header.php"; ?>
+    <main>
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/dbHXPnhCicI?autoplay=1&mute=1" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </main>
 
-<!--*************** PIED DE PAGE ***************-->
-<?php
-	include "partials/_footer.php";
-?>
-
-<!--*************** PIED DE PAGE ***************-->
-
-	</body>
-
+    <?php include "partials/_footer.php"; ?>
+    </body>
 </html>

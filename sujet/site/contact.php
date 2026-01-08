@@ -2,66 +2,69 @@
 session_start();
 ?>
 <!DOCTYPE html>
-
 <html lang="fr">
-	<head>
-		<title>TRUC</title>
+<head>
+    <title>Contact - TRUC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
 
-	</head>
+    <?php include "partials/_header.php"; ?>
+    <main class="contact-wrapper">
+        
+        <h1 class="titre">Nous contacter</h1>
 
-	<body>
-<!--*************** MENU ***************-->
-<?php
-	include "partials/_header.php";
-?>
+        <div class="contact-card">
+            
+            <div class="contact-grid">
+                
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <h2>EMAIL</h2>
+                    <a href="mailto:scierie.gineste@wanadoo.fr">scierie.gineste@wanadoo.fr</a>
+                </div>
 
-<!--*************** END MENU ***************-->
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <h2>TÉLÉPHONE</h2>
+                    <a href="tel:+33970355409">+33 9 70 35 54 09</a>
+                </div>
 
-		<div class="contactContainer">
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <h2>ADRESSE</h2>
+                    <address>
+                        Route de Rodez<br>
+                        12220 MONTBAZENS
+                    </address>
+                </div>
 
-			<div class="rightContainer">
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <i class="fa fa-share-alt"></i>
+                    </div>
+                    <h2>NOUS SUIVRE</h2>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank" class="facebook-link">
+                            <i class="fa fa-facebook-square"></i> Facebook
+                        </a>
+                    </div>
+                </div>
 
-				<div class = "email">
-					<h2> EMAIL </h2>
-					<p> scierie.gineste@wanadoo.fr <p>
-				</div>
+            </div>
+        </div>
 
-				<div class = "telephone">
-					<h2> TELEPHONE </h2>
-					<p> +33 9 70 35 54 09 <p>
-				</div>
+    </main>
 
-				<div class = "adresse">
-					<h2> ADRESSE </h2>
-					<ul>
-						<li> Route de Rodez <li>
-						<li> 12220 <li>
-						<li> MONTBAZENS <li>
-					</ul>
-				</div>
-
-				<div class = "reseauxSociaux">
-					<h2> NOUS SUIVRE </h2>
-
-					<ul class="logo">
-						<li class="facebook"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img src="images/facebook.webp" loading="lazy"></a></li>
-					</ul>
-				</div>
-
-			</div>
-
-		</div>
-
-<!--*************** PIED DE PAGE ***************-->
-<?php
-	include "partials/_footer.php";
-?>
-
-<!--*************** PIED DE PAGE ***************-->
-
-	</body>
-
+    <?php include "partials/_footer.php"; ?>
+    </body>
 </html>
