@@ -1,5 +1,5 @@
 <?php
-    require("../metier/DB_connector.php");
+    require_once("../metier/DB_connector.php");
 
     // 1. Récupération des données du formulaire
     // On vérifie si la variable existe pour éviter une erreur "Undefined index"
