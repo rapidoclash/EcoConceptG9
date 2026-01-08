@@ -1,8 +1,8 @@
 ﻿<?php
 session_start();
-require("../metier/DB_connector.php");
-require("../metier/User.php");
-require("../Dao/UserDao.php");
+require_once("../metier/DB_connector.php");
+require_once("../metier/User.php");
+require_once("../Dao/UserDao.php");
 
 if (isset($_GET['idUtilCreation']) || isset($_GET['pwdCreation']) || isset($_GET['pwdBis'])) {
 

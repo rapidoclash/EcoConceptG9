@@ -13,16 +13,16 @@
 <body>
 	<!--*************** MENU ***************-->
 	<?php
-		include "views/partials/_header.php";
+		include "partials/_header.php";
 	?>
 	<!--*************** END MENU ***************-->
 	
 	<!--*************** LISTE PRODUITS ***************-->
 	<main id="container">
 		<?php
-			require("metier/DB_connector.php");
-			require("metier/Produit.php");
-			require("Dao/ProduitDao.php");
+			require_once("metier/DB_connector.php");
+			require_once("metier/Produit.php");
+			require_once("Dao/ProduitDao.php");
 
 			// Ouverture de la connexion BDD
 			$cnx = new DB_connector();
@@ -52,7 +52,7 @@
 	
 	<!--*************** PIED DE PAGE ***************-->
 	<?php
-		include "views/partials/_footer.php";
+		include "partials/_footer.php";
 	?>
 	<!--*************** END PIED DE PAGE ***************-->
 </body>

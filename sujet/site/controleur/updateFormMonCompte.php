@@ -1,8 +1,8 @@
 ﻿<?php
 session_start();
-require("../metier/DB_connector.php");
-require("../metier/User.php");
-require("../Dao/UserDao.php");
+require_once("../metier/DB_connector.php");
+require_once("../metier/User.php");
+require_once("../Dao/UserDao.php");
 
 // Tester l'existance des données passées par le formulaire et de la variable de session_cache_expire
 // pour tester

@@ -13,7 +13,7 @@ session_start();
 	<body>
 	<!--*************** MENU ***************-->
 <?php
-	include "views/partials/_header.php";
+	include "partials/_header.php";
 ?>
 
 <!--*************** END MENU ***************-->
@@ -31,7 +31,7 @@ session_start();
 
 <!--*************** PIED DE PAGE ***************-->
 <?php
-	include "views/partials/_footer.php";
+	include "partials/_footer.php";
 ?>
 
 <!--*************** PIED DE PAGE ***************-->
