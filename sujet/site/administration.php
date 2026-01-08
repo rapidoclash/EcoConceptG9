@@ -107,6 +107,9 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
         </span>			
 			<form  id="formModifproduit" action="#" method="post">
 				<div class="row" id="rowModificationProduit">
+					<?php
+						include "controleur/initSelectModifProduit.php";
+					?>
 				</div>	
 				<div class="row">
 					<div class="col-40">
@@ -127,9 +130,8 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 				<div class="row">
 					<input id="btnModifProduit" type="button" value="Modifier">
 				</div>
-			
 			</form>
-	</div>
+		</div>
 	</div>
 	<!-- Suppression de produit -->
 	<div class="row">
@@ -155,6 +157,9 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
         </span>			
 			<form  id="formSuppProduit" action="#" method="post">
 				<div class="row" id="rowSuppression">
+					<?php
+						include "controleur/initSelectSuprProduit.php";
+					?>
 				</div>
 				<div class="row">
 				<input id="btnSuppProduit" type="button" value="Supprimer">
@@ -168,9 +173,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 
 <!--*************** PIED DE PAGE ***************-->
 	
-	<script src="scripts/initSelectModifProduit.js"></script>
 	<script src="scripts/initSelectModifAccueil.js"></script>
-	<script src="scripts/initSelectSuprProduit.js"></script>
 </body>
 
 </html>
