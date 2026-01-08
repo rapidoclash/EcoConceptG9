@@ -17,12 +17,16 @@ class UserDao {
 	/**
 	 * Recherche d'un utilisateur en ce basant sur le couple ident/mdp
 	 */
-	public function userExist($userId, $userPwd) {
+	public function checkPassword($userId, $userPwd) {
 		$stmt = $this->_db->prepare(
-			"SELECT userId FROM user WHERE userId = ? AND userPwd = ?"
+			"SELECT userPwd FROM user WHERE userId = ?"
 		);
-		$stmt->execute([$userId, $userPwd]);
-		return $stmt->fetch() !== false;
+		$stmt->execute([$userId]);
+		$hashedPwd = $stmt->fetchColumn();
+		if ($hashedPwd === false) {
+			return false;
+		}
+		return password_verify($userPwd, $hashedPwd);
 	}
 	
 	/**
@@ -32,6 +36,19 @@ class UserDao {
 		$stmt = $this->_db->prepare("SELECT userId FROM user WHERE userId = ?");
 		$stmt->execute([$userId]);
 		return $stmt->fetch() !== false;
+	}
+
+	/**
+	 * Récupération d'un utilisateur par son id
+	 */
+	public function getById($userId) {
+		$stmt = $this->_db->prepare("SELECT * FROM user WHERE userId = ?");
+		$stmt->execute([$userId]);
+		$data = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($data === false) {
+			return null;
+		}
+		return new User($data);
 	}
     
 	
@@ -60,7 +77,7 @@ class UserDao {
 		$stmt->bindValue(1, $user->getUserId());
 		$stmt->bindValue(2, $user->getUserPwd());
 
-    	$stmt->execute();
+    	return $stmt->execute();
 	}
   
     /**

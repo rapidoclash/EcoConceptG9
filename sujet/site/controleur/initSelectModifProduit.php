@@ -22,7 +22,7 @@ $select = "  <div class='col-40'>
 
 $select .= " <select id='lbProduitModif' name='lbProduitModif'>";
 for ($i = 0; $i < count($produits); $i++) {
-    $select .= "<option value='".$produits[$i]->getId()."'>".$produits[$i]->getTitre()."</option>";	
+    $select .= "<option value='".$produits[$i]->getId()."'>".htmlspecialchars($produits[$i]->getTitre())."</option>";	
 }
 
 $select .= "</select>

@@ -30,27 +30,27 @@ session_start();
 			<li class="onglet"><a href="#sinscrire">Inscription</a></li>
 		</ul>
 
-		<form action="controleur/traitementFormConnexion.php" method="GET" id="login">
+		<form action="controleur/traitementFormConnexion.php" method="POST" id="login">
 			<h1>Connexion</h1>
 			<span class="err"><?php
 								if (isset($_SESSION['errCnx'])) {
-									echo $_SESSION['errCnx'];
+									echo htmlspecialchars($_SESSION['errCnx']);
 									$_SESSION['errCnx'] = "";
 								}
 								if (isset($_SESSION['creationOk'])) {
-									echo $_SESSION['creationOk'];
+									echo htmlspecialchars($_SESSION['creationOk']);
 									$_SESSION['creationOk'] = "";
 								}
 								if (isset($_SESSION['creationNok'])) {
-									echo $_SESSION['creationNok'];
+									echo htmlspecialchars($_SESSION['creationNok']);
 									$_SESSION['creationNok'] = "";
 								}
 								if (isset($_SESSION['errMdp'])) {
-									echo $_SESSION['errMdp'];
+									echo htmlspecialchars($_SESSION['errMdp']);
 									$_SESSION['errMdp'] = "";
 								}
 								if (isset($_SESSION['errId'])) {
-									echo $_SESSION['errId'];
+									echo htmlspecialchars($_SESSION['errId']);
 									$_SESSION['errId'] = "";
 								}
 								?></span>
@@ -68,7 +68,7 @@ session_start();
 			</div>
 		</form>
 
-		<form action="controleur/traitementFormInscription.php" id="sinscrire" method="GET">
+		<form action="controleur/traitementFormInscription.php" id="sinscrire" method="POST">
 			<h1>S'inscrire</h1>
 			<?php
 			$msgInscription = "";
@@ -86,7 +86,7 @@ session_start();
 
 			// On affiche le span SEULEMENT s'il y a du texte
 			if (!empty($msgInscription)) {
-				echo '<span class="err">' . $msgInscription . '</span>';
+				echo '<span class="err">' . htmlspecialchars($msgInscription) . '</span>';
 			}
 			?>
 			<div class="input-field">
