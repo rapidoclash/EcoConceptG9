@@ -19,7 +19,7 @@
     {
         // Sécurisation des données avant affichage (Protection XSS)
         $titre = htmlspecialchars($resultat['titre'] ?? '');
-        $descr =  htmlspecialchars(mb_substr($$resultat['descr'] ?? '', 0, 20));
+        $descr =  htmlspecialchars($resultat['descr'] ?? '');
         $img   = htmlspecialchars($resultat['img'] ?? '');
 
         $description = "<ul class='main-list'>";
