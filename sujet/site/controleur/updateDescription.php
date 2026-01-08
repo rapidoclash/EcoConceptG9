@@ -1,25 +1,34 @@
 <?php
+    require("../metier/DB_connector.php");
 
-	/* Connexion à la bdd */
-	$con = mysqli_connect("localhost", "root", "", "scierie");
+    // 1. Récupération des données du formulaire
+    // On vérifie si la variable existe pour éviter une erreur "Undefined index"
+    $nouvelleDescription = $_POST['areaModifAccueil'] ?? '';
 
-	/* Gestion des erreurs de connexion */
-	if (mysqli_connect_errno($con)){
-		echo "Erreur de connexion: " . mysqli_connect_error();
-	}
-	// Encodage utf8
-	mysqli_set_charset($con,"utf8");
-	$req = "UPDATE home SET home.desc='".$_POST["areaModifAccueil"]."' WHERE id=1";
+    try {
+        // 2. Connexion via votre nouvelle classe
+        $db = new DB_Connector();
+        $pdo = $db->openConnexion();
 
-	/* Gestion des erreurs de requête sql */
-	if (!mysqli_query($con, $req)){
-		echo "Echec de l'update" . mysqli_error($con);
-	}
-	$requete = $con->query($req);
+        // 3. Préparation de la requête (SÉCURITÉ MAXIMALE)
+        // On met un marqueur ":descr" au lieu de la variable directement.
+        // J'ai utilisé 'descr' car 'desc' est un mot réservé SQL et c'était le nom dans votre code précédent.
+        $sql = "UPDATE home SET descr = :descr WHERE id = 1";
+        
+        $stmt = $pdo->prepare($sql);
 
-	
-	/* Déconnexion de la bdd */
-	mysqli_close($con);
-	header('Location: ../index.php'); 
+        // 4. Exécution en injectant la variable proprement
+        $stmt->execute([':descr' => $nouvelleDescription]);
 
+        // 5. Fermeture
+        $db->closeConnexion();
+
+        // 6. Redirection
+        header('Location: ../index.php');
+        exit(); // Toujours mettre exit() après un header location
+
+    } catch (PDOException $e) {
+        // En cas d'erreur, on l'affiche
+        echo "Erreur lors de la mise à jour : " . $e->getMessage();
+    }
 ?>
