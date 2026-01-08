@@ -20,7 +20,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 <body>
 <!--*************** MENU ***************-->
 <?php
-	include "views/partials/_header.php";
+	include "partials/_header.php";
 ?>
 
 <!--*************** END MENU ***************-->
@@ -165,7 +165,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 	</div>
 <!--*************** PIED DE PAGE ***************-->
 <?php
-	include "views/partials/_footer.php";
+	include "partials/_footer.php";
 ?>
 
 <!--*************** PIED DE PAGE ***************-->
