@@ -18,7 +18,7 @@
 	max-width: 800px;
 	overflow: hidden;
 	position: relative;
-	item-align: center;
+	align-items: center;
 	
 }
 
