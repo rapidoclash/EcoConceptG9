@@ -26,10 +26,9 @@ if (isset($_POST['idUtilCreation']) || isset($_POST['pwdCreation']) || isset($_P
 			header('Location:../connexion.php');
 			
 		} else {
-			$hashed_password = password_hash($pwd, PASSWORD_DEFAULT);
 			$newUser = new User([
 				'userId' => $id,
-				'userPwd' => $hashed_password
+				'userPwd' => $pwd
 			]);
 		
 			if ($userManager->add($newUser)) {
