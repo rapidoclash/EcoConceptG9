@@ -3,11 +3,11 @@
 
 	<div class="slider" id="slider">
 
-		<div class="leftArrow" onclick="decalage(-1)">
+		<div id="prev" class="leftArrow">
 			<span class="arrow arrowLeft"></span>
 		</div>
 
-		<div class="rightArrow" onclick="decalage(1)">
+		<div id="next" class="rightArrow">
 			<span class="arrow arrowRight"></span>
 		</div>
 

@@ -1,9 +1,14 @@
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('.menu').click(function(){			
-			$('ul').toggleClass('active');
-		})
-	})
+	document.addEventListener("DOMContentLoaded", () => {
+		const menu = document.querySelector(".menu");
+		const navbar = document.querySelector("nav");
+		const ul = document.querySelector(".nav-links");
+
+		menu.addEventListener("click", () => {
+			navbar.classList.toggle("active");
+			ul.classList.toggle("active");
+		});
+	});
 </script> 
 <nav class="navbar">
 	<li class="toggle">

@@ -20,8 +20,6 @@ session_start();
 	include "views/partials/_header.php";
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <!--*************** END MENU ***************-->
 	</section>
 	
@@ -103,21 +101,62 @@ session_start();
 
 <!--*************** PIED DE PAGE ***************-->
 
-	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-	      $('.onglet a').on('click', function (e) {
-	      e.preventDefault();
-	       
-	      $(this).parent().addClass('active');
-	      $(this).parent().siblings().removeClass('active');
-	       
-	      var href = $(this).attr('href');
-	      $('.forms > form').hide();
-	      $(href).fadeIn(333);
-	    });
-	});
-</script>
+		function fadeIn(element, duration) {
+			element.style.opacity = 0;
+			element.style.display = 'block';
+
+			let start = null;
+
+			function animate(timestamp) {
+				if (!start) start = timestamp;
+				const progress = timestamp - start;
+				const opacity = Math.min(progress / duration, 1);
+
+				element.style.opacity = opacity;
+
+				if (progress < duration) {
+				requestAnimationFrame(animate);
+				}
+			}
+
+			requestAnimationFrame(animate);
+			}
+
+		document.addEventListener('DOMContentLoaded', function () {
+			const links = document.querySelectorAll('.onglet a');
+			const forms = document.querySelectorAll('.forms > form');
+
+			links.forEach(function (link) {
+				link.addEventListener('click', function (e) {
+				e.preventDefault();
+
+				const parent = this.parentElement;
+
+				// Ajout / suppression de la classe "active"
+				parent.classList.add('active');
+				Array.from(parent.parentElement.children).forEach(function (sibling) {
+					if (sibling !== parent) {
+					sibling.classList.remove('active');
+					}
+				});
+
+				// Cacher tous les formulaires
+				forms.forEach(function (form) {
+					form.style.display = 'none';
+				});
+
+				// Afficher le formulaire ciblé
+				const targetSelector = this.getAttribute('href');
+				const target = document.querySelector(targetSelector);
+
+				if (target) {
+					fadeIn(target, 333);
+				}
+				});
+			});
+		});
+	</script>
 
 </body>
 
